@@ -1,0 +1,168 @@
+schema:
+  schema_id: bopomofo_eten26e
+  name: 注音・倚天26e
+  version: "3.2.0"
+  author:
+    - "Lou <https://github.com/loustack17>"
+  description: |
+    - 注音符號輸入
+    - 倚天26鍵
+    - Enter 送出候選字（類似新注音）
+  dependencies:
+    - terra_pinyin
+
+switches:
+  - name: ascii_mode
+    reset: 1
+    states: ["中", En]
+  - name: full_shape
+    reset: 0
+    states: ["半形", "全形"]
+  - options: [zh_hant_tw, zh_hans]
+    reset: 0
+    states: ["繁體", "簡體"]
+
+engine:
+  processors:
+    - lua_processor@xinzhuyin_processor
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - script_translator
+  filters:
+    - simplifier@zh_hans
+    - simplifier@zh_hant_tw
+    - uniquifier
+
+menu:
+  alternative_select_keys: "1234567890"
+  page_size: 9
+
+speller:
+  alphabet: "abcdefghijklmnopqrstuvwxyz "
+  finals: " fjkd"
+  delimiter: "'"
+  use_space: true
+  algebra:
+    __include: bopomofo_eten26_mappings:/speller_algebra
+
+editor:
+  bindings:
+    Return: confirm
+    KP_Enter: confirm
+
+translator:
+  dictionary: terra_pinyin
+  prism: bopomofo_eten26e
+  enable_sentence: true
+  enable_completion: true
+  enable_user_dict: true
+  enable_encoder: true
+  encode_commit_history: true
+  preedit_format:
+    __include: bopomofo_eten26_mappings:/preedit_format
+
+punctuator:
+  full_shape:
+    "/": {commit: "、"}
+    ",": {commit: "，"}
+    .: {commit: "。"}
+    ";": {commit: "；"}
+    ":": {commit: "："}
+    "?": {commit: "？"}
+    "!": {commit: "！"}
+    "\"": {pair: ["\u201C", "\u201D"]}
+    "'": {pair: ["\u2018", "\u2019"]}
+    "(": {commit: "（"}
+    ")": {commit: "）"}
+    "[": {commit: "［"}
+    "]": {commit: "］"}
+    "{": {commit: "｛"}
+    "}": {commit: "｝"}
+    "<": {commit: "《"}
+    ">": {commit: "》"}
+    "@": {commit: "＠"}
+    "#": {commit: "＃"}
+    "$": {commit: "＄"}
+    "%": {commit: "％"}
+    "^": {commit: "＾"}
+    "&": {commit: "＆"}
+    "*": {commit: "＊"}
+    "-": {commit: "－"}
+    _: {commit: "＿"}
+    "+": {commit: "＋"}
+    "=": {commit: "＝"}
+    "\\": {commit: "＼"}
+    "|": {commit: "｜"}
+    "`": {commit: "｀"}
+    "~": {commit: "～"}
+  half_shape:
+    "/": {commit: "/"}
+    ",": {commit: ","}
+    .: {commit: .}
+    ";": {commit: ";"}
+    ":": {commit: ":"}
+    "?": {commit: "?"}
+    "!": {commit: "!"}
+    "\"": {commit: "\""}
+    "'": {commit: "'"}
+    "(": {commit: "("}
+    ")": {commit: ")"}
+    "[": {commit: "["}
+    "]": {commit: "]"}
+    "{": {commit: "{"}
+    "}": {commit: "}"}
+    "<": {commit: "<"}
+    ">": {commit: ">"}
+    "@": {commit: "@"}
+    "#": {commit: "#"}
+    "$": {commit: "$"}
+    "%": {commit: "%"}
+    "^": {commit: "^"}
+    "&": {commit: "&"}
+    "*": {commit: "*"}
+    "-": {commit: "-"}
+    _: {commit: _}
+    "+": {commit: "+"}
+    "=": {commit: "="}
+    "\\": {commit: "\\"}
+    "|": {commit: "|"}
+    "`": {commit: "`"}
+    "~": {commit: "~"}
+
+key_binder:
+  import_preset: default
+  bindings:
+    - {accept: space, send: Return, when: paging}
+
+recognizer:
+  patterns:
+    email: "^[a-z][-_.0-9a-z]*@.*$"
+    uppercase: "^[A-Z][-_+.'0-9A-Za-z]*$"
+    url: "^(www[.]|https?:|ftp:|mailto:).*$"
+    reverse_lookup: "`[a-z]*'?$"
+
+zh_hans:
+  option_name: zh_hans
+  opencc_config: t2s.json
+  tips: all
+  excluded_types: [reverse_lookup]
+
+zh_hant_tw:
+  option_name: zh_hant_tw
+  opencc_config: t2tw.json
+  tips: none
+  excluded_types: [reverse_lookup]

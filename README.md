@@ -1,60 +1,44 @@
-# RIME 倚天26鍵輸入方案（Cross-platform）
+# RIME 注音・倚天26鍵輸入方案
 
-> ~~本方案是參考 @oniondelta/Onion_Rime_Files 的[洋蔥輸入法](https://github.com/oniondelta/Onion_Rime_Files)~~
-
-> 本方案參考了 (20250425)
+> 本方案參考了
 >
-> 1. @rime/rime-bopomofo 的[rime-bopomofo](https://github.com/rime/rime-bopomofo)
-> 1. @jachuchen/Rime-et26 的[Rime-et26](https://github.com/jachuchen/Rime-et26)
+> 1. [rime-bopomofo](https://github.com/rime/rime-bopomofo)
+> 2. [Rime-et26](https://github.com/jachuchen/Rime-et26)
+> 3. [洋蔥輸入法](https://github.com/oniondelta/Onion_Rime_Files)
 
 ## 簡介
 
-- 注音符號輸入
-- 倚天26鍵 (忘形26)
+- 注音符號輸入，倚天26鍵配列
 - 支援繁簡轉換
 - 支援全形半形切換
 - 支援中英文切換
-- 支援網頁、郵件、網址識別
-- 支援自動選字
-- Enter候選字輸出
+- 兩種輸出模式：
+  - **bopomofo_eten26e**（新注音版）：連續輸入，Enter 送出，空白鍵為一聲
+  - **bopomofo_eten26s**（空白送出版）：空白鍵直接送出候選字
 
 ## 檔案列表
 
-- 倚天26鍵 RIME輸入方案 :
-    - `Etem_26Keys.schema.yaml`
-    - `Etem26key.yaml`
-
-- RIME 設定及Theme
-    - `Setting/default.custom.yaml` : 此檔案才能正確完成輸入法設定
-    - `Setting/weasel.custom.yaml` : 我本人慣用的樣式主題 for windows OS
+| 檔案 | 說明 |
+|---|---|
+| `bopomofo_eten26e.schema.yaml` | 新注音版方案 |
+| `bopomofo_eten26s.schema.yaml` | 空白送出版方案 |
+| `bopomofo_eten26_mappings.yaml` | 共用拼寫與顯示對照 |
+| `rime.lua` | 空白鍵處理器 |
+| `Setting/default.custom.yaml` | 方案選單設定 |
 
 ## 安裝方式
 
-1. 將上列檔案複製進用戶資料夾:
-   - Windows: `%APPDATA%\Rime`
-   - Linux (fcitx5): `~/.local/share/fcitx5/rime/`
-   - Linux (IBus): `~/.config/ibus/rime/`
-   - MacOS: `~/Library/Rime/`
+1. 將上列檔案複製進用戶資料夾：
+   - Windows：`%APPDATA%\Rime`
+   - Linux（fcitx5）：`~/.local/share/fcitx5/rime/`
+   - Linux（IBus）：`~/.config/ibus/rime/`
+   - macOS：`~/Library/Rime/`
 
-2. 執行 **重新部署** ，即可在選單(F4)內找到該輸入法
-   - Windows: 從開始選單選擇 **重新部署**;或當開啓右下工具列看到輸入法Icon時，對Icon點右鍵選擇 **重新佈署**
-   - Linux : 點輸入法狀態欄（或IBus菜單）上的 ⟲ (Deploy) 按鈕
-      > 如果是用Gnome desktop可以到Gnome Extension安裝[**Input Method Panel**](https://extensions.gnome.org/extension/261/kimpanel/)
-   - MacOS: 在系統語言文字選單中選擇 **重新佈署**
-
-3. 完成後即可在選單(F4)內找到該輸入法
+2. 執行**重新部署**，即可在選單（F4）內找到輸入法
 
 ## 注意事項
 
-- ~~`essay-zh-hant-mc.txt` 是引用至 [洋蔥輸入法](https://github.com/oniondelta/Onion_Rime_Files/blob/main/allfiles/essay-zh-hant-mc.txt)~~  
-  > ~~20240620 停用預設八股文依賴, 改用洋蔥輸入法提供八股文~~
-- 簡繁轉換需安裝opencc才可使用
-
-## 輸入方法
-
-當鍵入文字後, 會呈現類似新注音的預選文字, Enter後才會完全輸出
-
-![示意圖](https://github.com/user-attachments/assets/dfb58cdc-e197-4e79-be2c-97cfcc4efac0)
+- 簡繁轉換需安裝 opencc
 
 ## 鍵位圖
 
