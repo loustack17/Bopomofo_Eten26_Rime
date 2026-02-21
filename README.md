@@ -1,4 +1,4 @@
-# RIME 注音・倚天26鍵輸入方案
+# 注音・倚天26鍵 RIME輸入方案
 
 > 本方案參考了
 >
@@ -43,3 +43,4 @@
 ## 鍵位圖
 
 ![倚天鍵位](https://user-images.githubusercontent.com/33840759/129006031-ba7e1b72-7a5f-4d84-8bf8-8fd45d92310d.jpg)
+
